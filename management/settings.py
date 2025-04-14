@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Use environ for environment variables
 env = environ.Env()
-environ.Env.read_env()  # Read environment variables from a .env file
+environ.Env.read_env()  # This loads the environment variables from the .env file
 
 # Media settings
 MEDIA_URL = '/media/'
@@ -107,7 +107,5 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session active even after the br
 SESSION_SAVE_EVERY_REQUEST = True  # Save session on each request
 
 # Stripe API keys (Using environ for production environments)
-STRIPE_TEST_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY', default='sk_test_51RDle1Crf6KByO5UQ41lRC8CsWBtjDkiTcdpW2hWnKnoNo9ZZMWQxtneOVxY2A8ZulsLKNfLs3TPf7NspE1Vwpb300YH4gY4fT')
-STRIPE_TEST_PUBLIC_KEY = env('STRIPE_TEST_PUBLIC_KEY', default='pk_test_51RDle1Crf6KByO5UHtn0g9u8mA8z7kwB8lmlVe8QLWlF1DGm82OshsJmhWo5S0dUyqC1ifoapUpINGbveCM1gUdd00Wbvh801T')
-
-# Add your other settings below (like logging, email, etc.)
+STRIPE_TEST_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
+STRIPE_TEST_PUBLIC_KEY = env('STRIPE_TEST_PUBLIC_KEY')
