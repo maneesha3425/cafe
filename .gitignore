@@ -1,0 +1,15 @@
+# Ignore virtual environment
+venv/
+
+# Ignore database files
+*.sqlite3
+
+# Ignore migration files
+__pycache__/
+
+# Ignore media and static files
+/media
+/static
+
+# Ignore .env files if you use them for storing secret keys
+.env

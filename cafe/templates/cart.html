@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fffaf5;
+            color: #333;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5e3c24;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #c49a6c;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f5f1;
+            font-size: 16px;
+        }
+
+        .total-row td {
+            font-weight: bold;
+            background-color: #f2e4d6;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #777;
+            font-size: 1.2em;
+            margin-top: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 15px auto;
+            padding: 10px 20px;
+            background-color: #a67c52;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #8b6844;
+            transform: scale(1.05);
+        }
+
+        .btn.green {
+            background-color: #28a745;
+        }
+
+        .btn.green:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn.red {
+            background-color: #dc3545;
+        }
+
+        .btn.red:hover {
+            background-color: #c82333;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        #cart-container {
+            margin-top: 30px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <div id="cart-container"></div>
+
+    <div style="text-align: center;">
+        <a href="/index/" class="btn">← Back to Menu</a>
+        <!-- Proceed to Payment button now triggers the form submission -->
+        <a href="#" class="btn green" id="proceed-to-payment">Proceed to Payment</a>
+    </div>
+
+    <!-- Hidden form to send cart data to the backend -->
+    <form id="paymentForm" method="POST" action="/payment/" style="display: none;">
+        <input type="hidden" name="cart_data" id="cartDataInput">
+        {% csrf_token %}
+    </form>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const container = document.getElementById("cart-container");
+
+        if (cart.length === 0) {
+            container.innerHTML = "<p class='empty-message'>Your cart is empty.</p>";
+        } else {
+            let table = "<div class='table-container'><table><tr><th>Item</th><th>Quantity</th><th>Price</th><th>Subtotal</th><th>Actions</th></tr>";
+            let total = 0;
+
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                table += `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price}</td>
+                            <td>$${subtotal.toFixed(2)}</td>
+                            <td><button onclick="removeFromCart(${item.id})">Remove</button></td>
+                          </tr>`;
+            });
+
+            table += `<tr class="total-row"><td colspan="3">Total</td><td>$${total.toFixed(2)}</td><td></td></tr>`;
+            table += "</table></div>";
+
+            container.innerHTML = table;
+        }
+
+        function removeFromCart(itemId) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.location.reload();
+        }
+
+        // Handle payment form submission
+        document.getElementById("proceed-to-payment").addEventListener("click", function (e) {
+            e.preventDefault();
+            // Store cart data in hidden input and submit the form
+            document.getElementById("cartDataInput").value = JSON.stringify(cart);
+            document.getElementById("paymentForm").submit();
+        });
+    </script>
+</body>
+</html>
