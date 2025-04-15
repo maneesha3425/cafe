@@ -2,7 +2,7 @@
 venv/
 
 # Ignore database files
-*.sqlite3
+#*.sqlite3
 
 # Ignore migration files
 __pycache__/

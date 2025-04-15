@@ -9,32 +9,40 @@
         /* Global Styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #f9f9f9, #e3d7c8);
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            flex-direction: column;
+            display: flex;
+            height: 100vh;
+            justify-content: space-between;
+            background: #f9f9f9;
         }
 
-        .cafemania-logo {
+        /* Left Side Styling */
+        .left-side {
+            width: 50%;
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .coffe-house-logo {
             font-size: 3rem;
             font-weight: bold;
             color: #5e4b3c;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            text-align: left;
         }
 
         .container {
-            background-color: #fff;
-            padding: 40px 50px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 450px;
-            text-align: center;
+            margin: 0 auto;
+            text-align: left;
         }
 
         h2 {
@@ -47,9 +55,39 @@
         p {
             font-size: 1.1rem;
             color: #555;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #a67c52;
+            outline: none;
+        }
+
+        /* Button Styling */
         #checkout-button {
             background-color: #a67c52;
             color: white;
@@ -60,6 +98,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 20px;
         }
 
         #checkout-button:hover {
@@ -71,22 +111,33 @@
             transform: translateY(1px);
         }
 
-        /* Subtle animations for the container */
-        .container {
-            opacity: 0;
-            animation: fadeIn 1s forwards;
+        /* Right Side Image Styling */
+        .right-side {
+            width: 50%;
+            background-image: url('https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+        /* Small screen adjustments */
+        @media (max-width: 768px) {
+            .left-side, .right-side {
+                width: 100%;
+                height: auto;
             }
-            to {
-                opacity: 1;
+
+            .coffe-house-logo {
+                font-size: 2rem;
+            }
+
+            #checkout-button {
+                font-size: 1rem;
+                padding: 12px 25px;
             }
         }
 
-        /* Bottom contact info */
+        /* Bottom Contact Info */
         .contact-info-bottom {
             position: fixed;
             bottom: 20px;
@@ -109,34 +160,55 @@
             color: #a67c52;
         }
 
-        /* Small screen adjustments */
-        @media (max-width: 600px) {
-            h2 {
-                font-size: 1.6rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            #checkout-button {
-                font-size: 1rem;
-                padding: 12px 25px;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- CafeMania name above payment section -->
-    <div class="cafemania-logo">CafeMania</div>
 
-    <div class="container">
-        <h2>Total: ${{ total }}</h2>
-        <p>Pay with your credit card:</p>
+    <!-- Left Side (Content) -->
+    <div class="left-side">
+        <div class="coffe-house-logo">The Coffee House</div>
+        
+        <div class="container">
+            <h2>Total: ${{ total }}</h2>
+            <p>Enter your details:</p>
 
-        <!-- Checkout Button -->
-        <button id="checkout-button">Checkout</button>
+            <!-- Customer Details Form -->
+            <form id="customer-details-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+            </form>
+
+            <!-- Delivery Options -->
+            <div class="form-group">
+                <label for="delivery-option">Delivery Options:</label>
+                <select id="delivery-option">
+                    <option value="standard">Standard Delivery - $5</option>
+                    <option value="express">Express Delivery - $10</option>
+                </select>
+            </div>
+
+            <!-- Total & Delivery -->
+            <div>
+                <h3>Total: ${{ total }} + Delivery: <span id="delivery-cost">$5</span></h3>
+            </div>
+
+            <!-- Checkout Button -->
+            <button id="checkout-button">Proceed to Payment</button>
+        </div>
     </div>
+
+    <!-- Right Side (Image) -->
+    <div class="right-side"></div>
 
     <script type="text/javascript">
         var stripe = Stripe('{{ stripe_public_key }}');  // Public key from Django settings
@@ -151,12 +223,23 @@
                 }
             });
         });
+
+        // Update delivery cost and total based on selected delivery option
+        document.getElementById('delivery-option').addEventListener('change', function () {
+            var deliveryCost = 5;
+            if (this.value === 'express') {
+                deliveryCost = 10;
+            }
+            document.getElementById('delivery-cost').textContent = '$' + deliveryCost;
+            // Optionally, update the total dynamically
+            // total = total + deliveryCost
+        });
     </script>
 
     <!-- Contact info at the bottom-right -->
     <div class="contact-info-bottom">
         <p>📞 +1 123 456 7890</p>
-        <p>📧 <a href="mailto:info@cafemania.com">info@cafemania.com</a></p>
+        <p>📧 <a href="mailto:maneesha3425@gmail.com" style="color: white; text-decoration: none;">maneesha3425@gmail.com</a></p>
     </div>
 </body>
 </html>

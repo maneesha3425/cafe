@@ -9,7 +9,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg');
+            background-image: url('https://mardomdecor.com/app/uploads/2023/03/CAFETERIA-2.jpeg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -23,21 +23,22 @@
             top: 30px;
             left: 40px;
             margin: 0;
-            color: white;
+            color: lightgrey;  /* Updated to light grey */
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
             text-decoration: underline;
+            margin-bottom: 30px; /* Added margin to create space below */
         }
 
         .about-container {
             position: absolute;
-            top: 150px;
+            top: 130px; /* Adjusted this to create space between heading and content */
             left: 40px;
             right: 40px;
             max-width: 700px;
         }
 
         .about-container p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             line-height: 1.6;
             margin-bottom: 20px;
             color: white;
@@ -75,18 +76,24 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to Our Cafe</h1>
-
-    <div class="about-container">
-        <p>Welcome to our cozy cafe where you can enjoy freshly brewed coffee, delicious pizzas, and delightful desserts. We believe in creating a warm and welcoming atmosphere for all our customers.</p>
-        <p>Our team is passionate about serving you the best food and drinks, made with high-quality ingredients. Whether you're here for a quick coffee break or a leisurely meal, we aim to make every visit a memorable experience.</p>
-
+    <h1>The Coffee House</h1>
+    <div class="about-container" style="position: absolute; top: 130px; left: 40px; right: 40px; max-width: 700px;">
+        <p>
+            Welcome to our cozy cafe where you can enjoy freshly brewed coffee, delicious pizzas, and delightful desserts. 
+            We take pride in offering a relaxing space where friends can gather, work can flow with a good brew, and every visit feels like a treat.
+            Our staff is dedicated to making your experience enjoyable and comfortable, ensuring you'll always want to come back.
+        </p>
+    
+        <!-- Underlined text for "We are open" with more space -->
+        <p style="font-size: 1.1rem; color: black; text-decoration: underline; margin-top: 40px;">We are open 7 days a week</p>
+        <p style="font-size: 1.1rem; color: black; text-decoration: underline; margin-top: 10px;">8 AM - 9 PM</p>
+        
         <a href="{% url 'index' %}?from_about=true" class="view-menu-button">View Menu</a>
     </div>
 
     <div class="contact-info">
         <p>📞 +123-456-7890</p>
-        <p>📧 contact@ourcafe.com</p>
+        <p>📧 <a href="mailto:maneesha3425@gmail.com" style="color: white; text-decoration: none;">maneesha3425@gmail.com</a></p>
     </div>
 </body>
 </html>
