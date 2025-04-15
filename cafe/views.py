@@ -24,6 +24,7 @@ def index(request):
     sandwich_items = Item.objects.filter(category='sandwich')  # Adding sandwiches
     drink_items = Item.objects.filter(category='drink')  # Adding drinks
     pasta_items = Item.objects.filter(category='pasta')  # Adding pasta items
+    logger.debug(f"Drink items: {drink_items}")
 
     items_data = list(coffee_items) + list(pizza_items) + list(burger_items) + \
                  list(dessert_items) + list(sandwich_items) + list(drink_items) + \

@@ -13,14 +13,14 @@
 
         body {
             background: url('https://img.freepik.com/free-photo/top-view-circular-food-frame_23-2148723455.jpg') no-repeat center center fixed; 
-            background-size: cover; /* Cover the entire page */
+            background-size: cover;
             color: #3c2f2f;
             padding: 0;
             box-sizing: border-box;
             position: relative;
         }
 
-        /* Navbar and top section */
+        /* Navbar */
         .top-bar {
             display: flex;
             justify-content: center;
@@ -42,7 +42,7 @@
             text-transform: uppercase;
         }
 
-        /* Main Content */
+        /* Page title */
         h1 {
             text-align: left;
             background: linear-gradient(to right, #c49a6c, #a67c52);
@@ -52,12 +52,13 @@
             font-size: 3em;
             letter-spacing: 1px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-left: 20px; /* Slightly move the title to the left */
+            margin-left: 20px;
         }
 
+        /* Section Headers */
         .section-header {
             font-size: 1.8em;
-            color: black; /* Change section text color to black */
+            color: black;
             margin: 40px auto 10px;
             padding: 10px 20px;
             max-width: 1300px;
@@ -70,25 +71,32 @@
             color: #a67c52;
         }
 
+        /* Menu Grid */
         .menu-container {
-            display: none; /* Initially hide all categories */
-            grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             padding: 30px 40px;
             max-width: 1600px;
             margin: auto;
+
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            border-radius: 10px;
         }
 
         .item-card {
-            background: #f0f0f0;
+            background: rgba(240, 240, 240, 0.3);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             font-size: 0.95em;
             display: flex;
             flex-direction: column;
             height: 100%;
+            backdrop-filter: blur(4px);
         }
 
         .item-card:hover {
@@ -148,7 +156,7 @@
             background: #e5e5e5;
         }
 
-        /* Responsive layout */
+        /* Responsive Layout */
         @media (max-width: 1280px) {
             .menu-container {
                 grid-template-columns: repeat(4, 1fr);
@@ -181,13 +189,13 @@
             }
         }
 
-        /* Contact info at the bottom-right */
+        /* Contact Info */
         .contact-info-bottom {
             position: fixed;
             bottom: 20px;
             right: 40px;
             font-size: 0.85rem;
-            color: black; /* Changed to black */
+            color: black;
             text-align: right;
         }
 
@@ -195,26 +203,25 @@
             margin: 3px 0;
         }
 
-        /* Contact info email in black color */
         .contact-info-bottom a {
-            color: black; /* Email in black color */
+            color: black;
             text-decoration: none;
         }
 
         .contact-info-bottom a:hover {
-            color: #a67c52; /* Hover effect */
+            color: #a67c52;
         }
     </style>
 </head>
 <body>
-    <!-- Top bar with cafe name -->
+
     <div class="top-bar">
         <div class="logo">The Coffee House</div>
     </div>
 
     <h1>Menu</h1>
 
-    <!-- Coffee Section Header -->
+    <!-- Menu Sections -->
     <h2 class="section-header" onclick="toggleMenu('coffee')">Coffee</h2>
     <div id="coffee-menu" class="menu-container">
         {% for item in coffee_items %}
@@ -232,7 +239,6 @@
         {% endfor %}
     </div>
 
-    <!-- Pizza Section Header -->
     <h2 class="section-header" onclick="toggleMenu('pizza')">Pizza</h2>
     <div id="pizza-menu" class="menu-container">
         {% for item in pizza_items %}
@@ -250,7 +256,6 @@
         {% endfor %}
     </div>
 
-    <!-- Burger Section Header -->
     <h2 class="section-header" onclick="toggleMenu('burger')">Burgers</h2>
     <div id="burger-menu" class="menu-container">
         {% for item in burger_items %}
@@ -268,7 +273,6 @@
         {% endfor %}
     </div>
 
-    <!-- Desserts Section Header -->
     <h2 class="section-header" onclick="toggleMenu('desserts')">Desserts</h2>
     <div id="desserts-menu" class="menu-container">
         {% for item in dessert_items %}
@@ -286,7 +290,6 @@
         {% endfor %}
     </div>
 
-    <!-- Sandwiches Section Header -->
     <h2 class="section-header" onclick="toggleMenu('sandwiches')">Sandwiches</h2>
     <div id="sandwiches-menu" class="menu-container">
         {% for item in sandwich_items %}
@@ -304,7 +307,6 @@
         {% endfor %}
     </div>
 
-    <!-- Pasta Section Header -->
     <h2 class="section-header" onclick="toggleMenu('pasta')">Pasta</h2>
     <div id="pasta-menu" class="menu-container">
         {% for item in pasta_items %}
@@ -321,24 +323,33 @@
             </div>
         {% endfor %}
     </div>
-
-    <!-- Drinks Section Header -->
     <h2 class="section-header" onclick="toggleMenu('drinks')">Drinks</h2>
-    <div id="drinks-menu" class="menu-container">
-        {% for item in drink_items %}
-            <div class="item-card">
-                {% if item.image %}
-                    <img src="{{ item.image }}" alt="{{ item.name }}">
-                {% else %}
-                    <div class="no-image">No image available</div>
-                {% endif %}
-                <h3>{{ item.name }}</h3>
-                <p class="price">${{ item.price }}</p>
-                <p>{{ item.description }}</p>
-                <button onclick="addToCartAndGo('{{ item.id }}')">Add to Cart</button>
-            </div>
-        {% endfor %}
-    </div>
+<div id="drinks-menu" class="menu-container">
+    {% for item in drink_items %}
+        <div class="item-card">
+            {% if item.image %}
+                <img src="{{ item.image }}" alt="{{ item.name }}">
+            {% else %}
+                <div class="no-image">No image available</div>
+            {% endif %}
+            <h3>{{ item.name }}</h3>
+            <p class="price">${{ item.price }}</p>
+            <p>{{ item.description }}</p>
+            <button onclick="addToCartAndGo('{{ item.id }}')">Add to Cart</button>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+    
+
+    
+
+    
+
+
 
     <script>
         const items = JSON.parse('{{ items_json|escapejs }}');
@@ -365,20 +376,17 @@
         function toggleMenu(category) {
             const menu = document.getElementById(category + '-menu');
             const isVisible = menu.style.display === 'grid';
-            // Hide all menus
-            document.querySelectorAll('.menu-container').forEach(menu => {
-                menu.style.display = 'none';
-            });
-            // Toggle selected menu
-            menu.style.display = isVisible ? 'none' : 'grid';
+            document.querySelectorAll('.menu-container').forEach(m => m.style.display = 'none');
+            if (!isVisible) {
+                menu.style.display = 'grid';
+            }
         }
     </script>
 
-    <!-- Contact info at the bottom-right -->
     <div class="contact-info-bottom">
-            <p>📞 +123-456-7890</p>
-            <p>📧 <a href="mailto:maneesha3425@gmail.com" style="color: white; text-decoration: none;">maneesha3425@gmail.com</a></p>
-        </div></p>
+        <p>📞 +123-456-7890</p>
+        <p>📧 <a href="mailto:maneesha3425@gmail.com">maneesha3425@gmail.com</a></p>
     </div>
+
 </body>
 </html>
